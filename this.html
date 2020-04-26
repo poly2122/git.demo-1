@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* this基于call/apply/bind可以改变this的指向（强行改变） */
+        /*  */
+        /*  Function.prototype={
+      call
+      apply
+      bind
+        } */
+        ~ function anonymous(proto) {
+            function bind() {
+                console.log(context);
+                //this:需要最终执行的函数
+                context = context || window;
+            }
+            proto.bind = bind;
+        }(Function.prototype)
+        let obj = {
+            fn(x, y) {
+                console.log(this, x, y);
+
+            }
+        }
+        /*  obj.fn.call(window, 10, 20);
+         obj.fn.apply(window, [10, 20]); */
+        setTimeout(obj.fn.bind(window, 10, 20), 1000);
+    </script>
+</body>
+
+</html>
